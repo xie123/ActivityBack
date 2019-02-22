@@ -1,0 +1,101 @@
+// ********************************** upload archives ***********************************
+
+/**
+ * command support
+ *
+ * gradle -PversionCMD="1.0.2-SNAPSHOT" :library:uploadArchives
+ */
+apply plugin: 'maven'
+//apply plugin: 'signing'
+
+//artifacts {
+//    // archives file("$archivePath")
+//    archives file: file("$archivePath")/*, name: 'A', type: 'aar', classifier: 'android'*/
+//}
+
+//定义GroupID和Version，ArtefactID会自动使用Project名
+boolean local=true
+group = "$archiveGroup"
+version = !local ? getParameter('archiveVersion') :  "$archiveVersion"
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+//    classifier = 'javadoc'
+//    from androidJavadocs.destinationDir
+//}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+    archives androidSourcesJar
+//    archives androidJavadocsJar
+}
+
+//signing {
+//    sign configurations.archives
+//}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //为Pom文件做数字签名
+//            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "http://nexus.dangbei.net/nexus/content/repositories/releases/") {
+                if(!local){
+                    authentication(userName: getParameter('ossrhUsername'), password: getParameter('ossrhPassword'))
+                }else{
+                    authentication(userName: 'dev', password: 'DBznds20130905')
+                }
+
+            }
+            snapshotRepository(url: "http://nexus.dangbei.net/nexus/content/repositories/snapshots/") {
+                if(!local){
+                    authentication(userName: getParameter('ossrhUsername'), password: getParameter('ossrhPassword'))
+                }else{
+                    authentication(userName: 'dev', password: 'DBznds20130905')
+                }
+            }
+
+            pom.project {
+                artifactId "$archiveName"
+                name "$archiveName"
+                packaging 'aar'
+
+                description "$archiveDesc"
+                url "$archiveUrl"
+
+                developers {
+                    developer {
+                        id 'XieQiYuan'
+                        name 'XieQiYuan'
+                        email 'xieqiyuan@znds.com'
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+def getParameter(String key) {
+    // -D
+    String value = System.getProperty(key)
+    if (null != value && value.length() > 0) {
+        println("System.getProperty:"+key+":"+value)
+        return value
+    }
+    // -P
+    if (hasProperty(key)) {
+        println("System.getProperty:"+key+":"+value)
+        return getProperty(key)
+    }
+    return null
+}
