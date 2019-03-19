@@ -38,7 +38,6 @@ public class OnActResultEventDispatcherFragment extends Fragment {
         } catch (ActivityNotFoundException e) {
             callback.onActivityResult(callback.hashCode(),ActivityNotFoundCode, null);
         }
-
     }
 
     @Override
