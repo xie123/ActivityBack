@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion  rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
         applicationId "com.monster.activitybacks"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
@@ -17,7 +18,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation project(':library')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile project(':library')
 }
