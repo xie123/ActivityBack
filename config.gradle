@@ -1,12 +1,12 @@
 ext {
     objectboxVersion = "1.4.4"
-    android = [compileSdkVersion       : 27,
-               buildToolsVersion       : "27.0.3",
+    android = [compileSdkVersion       : 26,
+               buildToolsVersion       : "26.0.3",
                minSdkVersion           : 14,
-               targetSdkVersion        : 27,
+               targetSdkVersion        : 26,
                versionCode             : 1,
                versionName             : "1",
-               androidSupportSdkVersion: "27.1.1",
+               androidSupportSdkVersion: "26.1.0",
 
                rxlifecycleSdkVersion   : "1.0",
                espressoSdkVersion      : "2.2.2"
@@ -30,12 +30,12 @@ ext {
             "dal-request"                        : "com.dangbei:dal_request:1.0.2",
             "dal-request-gson"                   : "com.dangbei:dal_request-gson:1.0.1",
             "edeviceid"                          : "com.dangbei:edeviceid:1.0.8",
-
+            "activityback"                       : "com.monster:activityback:1.0.0.2",
             "etna-aidl"                          : "com.dangbei:etna-aidl:1.0.4-SNAPSHOT",
             "lerad-api"                          : "com.dangbei:lerad-api:1.0.4-SNAPSHOT",
             "xfunc"                              : "com.dangbei:xfunc:1.0.1",
             "xlog"                               : "com.dangbei:xlog:1.0.1",
-
+            "hqplayer"                           : "com.dangbei:hqplayer:1.4.13",
 
 //            A
             "auto-inject"                        :"com.eastwood.common:auto-inject:1.0.0",
@@ -44,6 +44,7 @@ ext {
             "androidJUnitRunner"                 : "android.support.test.runner.AndroidJUnitRunner",
             "annotations"                        : "com.android.support:support-annotations:${android["androidSupportSdkVersion"]}",
             "appcompat-v7"                       : "com.android.support:appcompat-v7:${android["androidSupportSdkVersion"]}",
+
             "koin-android-architecture"          :"org.koin:koin-android-architecture:1.0.2",
             "koin-android-viewmodel"             :"org.koin:koin-android-viewmodel:1.0.2",
             "koin-android"                       :"org.koin:koin-android:1.0.2",
