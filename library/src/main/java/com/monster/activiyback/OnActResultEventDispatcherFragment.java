@@ -36,19 +36,16 @@ public class OnActResultEventDispatcherFragment extends Fragment {
         try {
             startActivityForResult(intent, callback.hashCode());
         } catch (ActivityNotFoundException e) {
-            callback.onActivityResult(callback.hashCode(),ActivityNotFoundCode, null);
+            callback.onActivityResult(callback.hashCode(), ActivityNotFoundCode, null);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         ActivityResultRequest.Callback callback = mCallbacks.get(requestCode);
-
-
         if (callback != null) {
-            callback.onActivityResult(callback.hashCode(),resultCode, data);
+            callback.onActivityResult(callback.hashCode(), resultCode, data);
         }
         mCallbacks.remove(requestCode);
     }
