@@ -23,7 +23,7 @@ public class ActivityResultNavigatorFragment extends Fragment {
     private PublishSubject<Boolean> cancelSubject;
     private PublishSubject<Boolean> attachSubject = PublishSubject.create();
 
-    public Single<Boolean> startLoginForResult(Intent intent,FragmentActivity activity) {
+    public Single<Boolean> startLoginForResult(FragmentActivity activity, Intent intent) {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(TAG);
         if (fragment == null) {
@@ -42,7 +42,7 @@ public class ActivityResultNavigatorFragment extends Fragment {
         attachSubject.onComplete();
     }
 
-    public Single<Boolean> startLoginSingle(Intent intent) {
+    Single<Boolean> startLoginSingle(Intent intent) {
         resultSubject = PublishSubject.create();
         cancelSubject = PublishSubject.create();
         startLogin(intent);
@@ -52,7 +52,7 @@ public class ActivityResultNavigatorFragment extends Fragment {
     }
 
     @SuppressLint("CheckResult")
-    public void startLogin(final Intent intent) {
+    void startLogin(final Intent intent) {
         if (!isAdded()) {
             attachSubject.subscribe(new Consumer<Boolean>() {
                 @Override
